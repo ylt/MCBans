@@ -49,7 +49,7 @@ public class CommandHandler {
 		boolean rollback	= false;
 		boolean flagsErr	= false;
 		String username		= null;
-		if(args.length>=1 && Commands.valueOf(command.toUpperCase()) != Commands.MCBANS){
+		if(args.length>=1){
 			if (Commands.valueOf(command.toUpperCase()) == Commands.BAN) {
 				for(int i=0;i<args[0].length();i++) {
 					char c = args[0].charAt(i);
@@ -120,8 +120,10 @@ public class CommandHandler {
 				}
 			}
 		} else {
-            MCBans.broadcastPlayer( CommandSend, ChatColor.DARK_RED + MCBans.Language.getFormat( "formatError" ) );
-            return true;
+            if (Commands.valueOf(command.toUpperCase()) != Commands.MCBANS) {
+                MCBans.broadcastPlayer( CommandSend, ChatColor.DARK_RED + MCBans.Language.getFormat( "formatError" ) );
+                return true;
+            }
         }
 		switch(Commands.valueOf(command.toUpperCase())){
 			case BAN:
