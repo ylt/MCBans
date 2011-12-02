@@ -49,7 +49,7 @@ public class CommandHandler {
 		boolean rollback	= false;
 		boolean flagsErr	= false;
 		String username		= null;
-		if(args.length>=1 && Commands.valueOf(command.toUpperCase()) == Commands.MCBANS){
+		if(args.length>=1 && Commands.valueOf(command.toUpperCase()) != Commands.MCBANS){
 			if (Commands.valueOf(command.toUpperCase()) == Commands.BAN) {
 				for(int i=0;i<args[0].length();i++) {
 					char c = args[0].charAt(i);
