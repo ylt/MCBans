@@ -349,7 +349,7 @@ public class CommandHandler {
 				commandSet = true;
 			break;
 			case MCBANS:
-				if(args.length==0){
+				if(args.length < 1){
 					MCBans.broadcastPlayer( CommandSend, ChatColor.BLUE + "MCBans Help");
                     MCBans.broadcastPlayer( CommandSend, ChatColor.WHITE + "/mcbans banning" + ChatColor.BLUE + " Help with banning/unban command");
                     MCBans.broadcastPlayer( CommandSend, ChatColor.WHITE + "/mcbans core" + ChatColor.BLUE + " Help with core commands");
