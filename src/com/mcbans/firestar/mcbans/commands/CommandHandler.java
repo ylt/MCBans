@@ -425,7 +425,8 @@ public class CommandHandler {
                                 }
                                 return true;
                             }
-                        }else if(args[0].equalsIgnoreCase("version")){
+                        }
+                        if(args[0].equalsIgnoreCase("version")){
                             if (!MCBans.buildVersion.contains("BUILDVERSION") && !MCBans.gitRevision.contains("GITREVISION")) {
                                 MCBans.broadcastPlayer( CommandSend, ChatColor.WHITE+ "Running MCBans v" + MCBans.getDescription().getVersion() + " git-" + MCBans.gitRevision + " b" + MCBans.buildVersion + "bamboo");
                             } else {
