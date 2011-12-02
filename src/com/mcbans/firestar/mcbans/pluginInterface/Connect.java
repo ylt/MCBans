@@ -22,48 +22,52 @@ public class Connect {
 		long timeInMillis = System.currentTimeMillis();
 		
 		if (MCBans.Settings.getBoolean("throttleAll") && MCBans.Settings.getInteger("allConnectionTime") > 0 && MCBans.taskID != -1) {
-			long maxTime = MCBans.Settings.getInteger("allConnectionTime") * 1000;
-			if (conAllCount == 0) {
-				long allNextReset = timeInMillis + maxTime;
-				MCBans.setResetTime("[Global]", allNextReset);
-			}
-			long allCheckTime = MCBans.getResetTime("[Global]");
-			if (allCheckTime > timeInMillis) {
-				if (MCBans.Settings.getInteger("allConnectionLimit") < conAllCount) {
-					if (MCBans.Settings.getInteger("allConnectionLimit") == conAllCount) {
-						MCBans.setResetTime("[Global]", (timeInMillis + (MCBans.Settings.getInteger("allLockoutTime") * 1000)));
-						MCBans.setConnectionData("[Global]", ++conAllCount);
-					}
-					if (MCBans.Settings.getString("allLockoutMsg").equals("")) {
-						return "Too many connections! Please wait a few minutes.";
-					} else {
-						return MCBans.Settings.getString("allLockoutMsg");
-					}
-				} else {
-					MCBans.setConnectionData("[Global]", ++conAllCount);
-				}
-			}
+			if (MCBans.getResetTime("[Enable]") < timeInMillis) {
+                long maxTime = MCBans.Settings.getInteger("allConnectionTime") * 1000;
+			    if (conAllCount == 0) {
+				    long allNextReset = timeInMillis + maxTime;
+				    MCBans.setResetTime("[Global]", allNextReset);
+			    }
+			    long allCheckTime = MCBans.getResetTime("[Global]");
+			    if (allCheckTime > timeInMillis) {
+				    if (MCBans.Settings.getInteger("allConnectionLimit") < conAllCount) {
+					    if (MCBans.Settings.getInteger("allConnectionLimit") == conAllCount) {
+					    	MCBans.setResetTime("[Global]", (timeInMillis + (MCBans.Settings.getInteger("allLockoutTime") * 1000)));
+					    	MCBans.setConnectionData("[Global]", ++conAllCount);
+				    	}
+				    	if (MCBans.Settings.getString("allLockoutMsg").equals("")) {
+				    		return "Too many connections! Please wait a few minutes.";
+				    	} else {
+				    		return MCBans.Settings.getString("allLockoutMsg");
+				    	}
+				    } else {
+					    MCBans.setConnectionData("[Global]", ++conAllCount);
+				    }
+			    }
+            }
 		}
 		if (MCBans.Settings.getBoolean("throttleUsers") && MCBans.Settings.getInteger("userConnectionTime") > 0 && MCBans.taskID != -1) {
-			long maxTime = MCBans.Settings.getInteger("userConnectionTime") * 1000;
-			if (conUserCount == 0) {
-				long nextReset = timeInMillis + maxTime;
-				MCBans.setResetTime(PlayerName, nextReset);
-			}
-			long checkTime = MCBans.getResetTime(PlayerName);
-			if (checkTime > timeInMillis) {
-				if (MCBans.Settings.getInteger("userConnectionLimit") == conUserCount) {
-					MCBans.setResetTime(PlayerName, (timeInMillis + (MCBans.Settings.getInteger("userLockoutTime") * 1000)));
-					if (MCBans.Settings.getString("userLockoutMsg").equals("")) {
-						return "Connecting too quickly! Please wait a few minutes.";
-					} else {
-						return MCBans.Settings.getString("userLockoutMsg");
-					}
-				} else {
-					MCBans.setConnectionData(PlayerName, ++conUserCount);
-				}
-			}
-		}
+            if (MCBans.getResetTime("[Enable]") < timeInMillis) {
+                long maxTime = MCBans.Settings.getInteger("userConnectionTime") * 1000;
+			    if (conUserCount == 0) {
+			    	long nextReset = timeInMillis + maxTime;
+			    	MCBans.setResetTime(PlayerName, nextReset);
+			    }
+			    long checkTime = MCBans.getResetTime(PlayerName);
+			    if (checkTime > timeInMillis) {
+			    	if (MCBans.Settings.getInteger("userConnectionLimit") == conUserCount) {
+			    		MCBans.setResetTime(PlayerName, (timeInMillis + (MCBans.Settings.getInteger("userLockoutTime") * 1000)));
+			    		if (MCBans.Settings.getString("userLockoutMsg").equals("")) {
+			    			return "Connecting too quickly! Please wait a few minutes.";
+				    	} else {
+					    	return MCBans.Settings.getString("userLockoutMsg");
+					    }
+				    } else {
+					    MCBans.setConnectionData(PlayerName, ++conUserCount);
+				    }
+			    }
+		    }
+        }
 		if(MCBans.getMode()){
 			if(MCBans.Backup.isBanned(PlayerName)){
 				s = MCBans.Settings.getString("offlineReason");
@@ -184,6 +188,8 @@ public class Connect {
 			}
 			return s;
 		} catch (NullPointerException e) {
+            MCBans.log(LogLevels.SEVERE, "MCBans API Failure");
+            MCBans.log(LogLevels.SEVERE, "Error: " + e.getMessage());
 			return s;
 		}
 	}

@@ -36,13 +36,15 @@ public class Lookup extends Thread {
 	        if (result.getJSONArray("global").length() > 0) {
 	        	MCBans.broadcastPlayer( PlayerAdmin, ChatColor.DARK_RED + "Global bans");
 	        	for (int v = 0; v < result.getJSONArray("global").length(); v++) {
-	        		MCBans.broadcastPlayer( PlayerAdmin, result.getJSONArray("global").getString(v) );
+                    String[] getGlobal = result.getJSONArray("global").getString(v).split(" .:. ");
+	        		MCBans.broadcastPlayer( PlayerAdmin, ChatColor.DARK_RED +  getGlobal[0] + ChatColor.WHITE + ": " + getGlobal[1] );
 	        	}
 	        }
 	        if (result.getJSONArray("local").length() > 0) {
 	        	MCBans.broadcastPlayer( PlayerAdmin, ChatColor.GOLD + "Local bans");
 	        	for (int v = 0; v < result.getJSONArray("local").length(); v++) {
-	        		MCBans.broadcastPlayer( PlayerAdmin, result.getJSONArray("local").getString(v) );
+                    String[] getLocal = result.getJSONArray("local").getString(v).split(" .:. ");
+                    MCBans.broadcastPlayer( PlayerAdmin, ChatColor.GOLD + getLocal[0] + ChatColor.WHITE + ": " + getLocal[1] );
 	        	}
 	        }
         } catch (JSONException e) {

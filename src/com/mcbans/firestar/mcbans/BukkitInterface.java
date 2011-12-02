@@ -46,8 +46,8 @@ public class BukkitInterface extends JavaPlugin {
 	private boolean mode = false;
     public boolean useColor = true;
 	public BukkitPermissions Permissions = null;
-    private String gitRevision = "@@GITREVISION@@";
-    private String buildVersion = "@@BUILDVERSION@@";
+    public String gitRevision = "@@GITREVISION@@";
+    public String buildVersion = "@@BUILDVERSION@@";
 	public HashMap<String, ArrayList<String>> joinMessages = new HashMap<String, ArrayList<String>>();
 	
 	public void onDisable() {
@@ -109,7 +109,7 @@ public class BukkitInterface extends JavaPlugin {
 
 		pm.registerEvent( Event.Type.PLAYER_JOIN, bukkitPlayer, Priority.Normal, this );
         pm.registerEvent( Event.Type.PLAYER_PRELOGIN, bukkitPlayer, Priority.Normal, this );
-        pm.registerEvent( Event.Type.PLAYER_QUIT, bukkitPlayer, Priority.Normal, this );
+        pm.registerEvent( Event.Type.PLAYER_QUIT, bukkitPlayer, Priority.Low, this );
         
         String language;
         
@@ -167,7 +167,7 @@ public class BukkitInterface extends JavaPlugin {
         }
         
         
-        if (Settings.getBoolean("throttleUsers")) {
+        if (Settings.getBoolean("throttleUsers") || Settings.getBoolean("throttleAll")) {
         BukkitScheduler BScheduler = server.getScheduler();
         taskID = BScheduler.scheduleAsyncRepeatingTask(this, new ThrottleReset(this), 0L, 40L);
         
@@ -177,7 +177,13 @@ public class BukkitInterface extends JavaPlugin {
         	} else {
         		log(LogLevels.INFO, "Connection throttling operating normally!");
         		log(LogLevels.INFO, "Task ID: " + taskID);
-        		log(LogLevels.INFO, "Throttle Connect Limit: " + Settings.getInteger("userConnectionLimit"));
+        		log(LogLevels.INFO, "User Throttling: " + Settings.getBoolean("throttleUsers"));
+                log(LogLevels.INFO, "Global Throttling: " + Settings.getBoolean("throttleAll"));
+                if (Settings.getInteger("throttleDelay") > 0) {
+                    long allNextReset = System.currentTimeMillis() + (Settings.getInteger("throttleDelay") * 1000);
+                    setResetTime("[Enable]", allNextReset);
+                    log(LogLevels.INFO, "Throttling will start in " + Settings.getInteger("throttleDelay") + " seconds.");
+                }
         	}
         }
         

@@ -1,5 +1,7 @@
 package com.mcbans.firestar.mcbans;
 
+import com.mcbans.firestar.mcbans.log.LogLevels;
+
 import java.util.Map;
 
 public class ThrottleReset implements Runnable {
@@ -31,6 +33,9 @@ public class ThrottleReset implements Runnable {
 					MCBans.clearThrottle(key);
                     if (debug) {
 					    MCBans.log("Resetting throttle timer for " + key);
+                    }
+                    if (key == "[Enable]") {
+                        MCBans.log(LogLevels.INFO, "Throttling is now enabled.");
                     }
 				}
 			}

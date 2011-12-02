@@ -405,7 +405,7 @@ public class CommandHandler {
                         MCBans.broadcastPlayer( CommandSend, ChatColor.WHITE + "g" + ChatColor.BLUE + " Global ban user");
 					    MCBans.broadcastPlayer( CommandSend, ChatColor.WHITE + "t" + ChatColor.BLUE + " Temporarily ban user");
                         MCBans.broadcastPlayer( CommandSend, ChatColor.WHITE + "r" + ChatColor.BLUE + " Rollback user via LogBlock");
-                    } else if (args[0].equalsIgnoreCase("online") || args[0].equalsIgnoreCase("offline") || args[0].equalsIgnoreCase("status")) {
+                    } else if (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("online") || args[0].equalsIgnoreCase("offline") || args[0].equalsIgnoreCase("status")) {
                         if(MCBans.Permissions.isAllow( inWorld, CommandSend, "mode") || !isPlayer){
                             if(args[0].equalsIgnoreCase("online")){
                                 MCBans.broadcastPlayer( CommandSend, ChatColor.LIGHT_PURPLE + "Running online mode!" );
@@ -425,6 +425,13 @@ public class CommandHandler {
                                 }
                                 return true;
                             }
+                        }else if(args[0].equalsIgnoreCase("version")){
+                            if (!MCBans.buildVersion.contains("BUILDVERSION") && !MCBans.gitRevision.contains("GITREVISION")) {
+                                MCBans.broadcastPlayer( CommandSend, ChatColor.WHITE+ "Running MCBans v" + MCBans.getDescription().getVersion() + " git-" + MCBans.gitRevision + " b" + MCBans.buildVersion + "bamboo");
+                            } else {
+                                MCBans.broadcastPlayer( CommandSend, ChatColor.WHITE+ "Running MCBans v" + MCBans.getDescription().getVersion());
+                            }
+                            return true;
                         }else{
                             MCBans.broadcastPlayer( CommandSend, ChatColor.DARK_RED + MCBans.Language.getFormat( "permissionDenied" ) );
                             return true;
