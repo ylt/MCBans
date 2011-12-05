@@ -222,6 +222,20 @@ public class MCBansAPI {
 		kickPlayer(playerName, "console");
 	}
 
+	/**
+	 * Checks if a given player is a member of the MCBans team
+	 *
+	 * @param playerName Full name of the player to be checked
+	 * @return Whether or not the player is a member of staff
+	 */
+	private boolean isMCBansStaff(String playerName) {
+		throw new UnsupportedOperationException("Not yet implemented");
+	}
+
+	////////////////////////////
+	/////// Util methods ///////
+	////////////////////////////
+
 	private String getPlayerIP(String playerName) {
 		Player player = plugin.getServer().getPlayerExact(playerName);
 		if (player != null) {
