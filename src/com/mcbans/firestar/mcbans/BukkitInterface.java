@@ -82,15 +82,7 @@ public class BukkitInterface extends JavaPlugin {
 
 		PluginManager pm = getServer().getPluginManager();
 		
-		//Rigby's Help :D
-		CraftServer server = (CraftServer) getServer();
-		
-        boolean isFirestarFail = server.getServer().onlineMode;
-        if( !isFirestarFail ){
-        	logger.log(LogLevels.FATAL, "MCBans: Your server is not in online mode!");
-        	pm.disablePlugin(pluginInterface("mcbans"));
-        	return;
-        }
+		if (checkOfflineMode()) return;
 
         Core = new Core(this);
 
@@ -202,6 +194,7 @@ public class BukkitInterface extends JavaPlugin {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+		if (checkOfflineMode()) return false;
 		return commandHandle.execCommand( command.getName(), args, sender );
 	}
 
@@ -342,4 +335,18 @@ public class BukkitInterface extends JavaPlugin {
 		return api;
 	}
 	
+	/*
+	 * Checks if server is in offline mode and, if so, disables the plugin
+	 * 
+	 * Return True if offline, False if online (seems backwards, but it saves !s in other places)
+	 */
+	public boolean checkOfflineMode() {
+        if(getServer().getOnlineMode()){
+        	logger.log(LogLevels.FATAL, "MCBans: Your server is not in online mode!");
+        	getServer().getPluginManager().disablePlugin(pluginInterface("mcbans"));
+        	return true;
+        } else {
+			return false;
+		}
+	}
 }
