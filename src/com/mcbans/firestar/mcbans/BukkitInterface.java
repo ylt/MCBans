@@ -161,7 +161,7 @@ public class BukkitInterface extends JavaPlugin {
         
         
         if (Settings.getBoolean("throttleUsers") || Settings.getBoolean("throttleAll")) {
-        BukkitScheduler BScheduler = server.getScheduler();
+        BukkitScheduler BScheduler = getServer().getScheduler();
         taskID = BScheduler.scheduleAsyncRepeatingTask(this, new ThrottleReset(this), 0L, 40L);
         
         	if (taskID == -1) {
