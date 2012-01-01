@@ -341,7 +341,7 @@ public class BukkitInterface extends JavaPlugin {
 	 * Return True if offline, False if online (seems backwards, but it saves !s in other places)
 	 */
 	public boolean checkOfflineMode() {
-        if(getServer().getOnlineMode()){
+        if(!getServer().getOnlineMode()){
         	logger.log(LogLevels.FATAL, "MCBans: Your server is not in online mode!");
         	getServer().getPluginManager().disablePlugin(pluginInterface("mcbans"));
         	return true;
