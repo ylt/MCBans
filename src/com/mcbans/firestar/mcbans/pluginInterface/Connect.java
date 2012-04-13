@@ -71,7 +71,7 @@ public class Connect {
 		JsonHandler webHandle = new JsonHandler( MCBans );
 		HashMap<String, String> url_items = new HashMap<String, String>();
 		url_items.put("player", PlayerName);
-		url_items.put("playerip", PlayerIP);
+		//url_items.put("playerip", PlayerIP);
 		url_items.put("exec", "playerConnect");
 		HashMap<String, String> response = webHandle.mainRequest(url_items);
 		try {

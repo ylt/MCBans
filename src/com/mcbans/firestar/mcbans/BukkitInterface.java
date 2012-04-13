@@ -67,12 +67,14 @@ public class BukkitInterface extends JavaPlugin {
 		//Rigby's Help :D
 		CraftServer server = (CraftServer) getServer();
 		
-        boolean isFirestarFail = server.getServer().onlineMode;
+		/*
+		boolean isFirestarFail = server.getServer().onlineMode;
         if( !isFirestarFail ){
         	logger.log(LogLevels.FATAL, "MCBans: Your server is not in online mode!");
         	pm.disablePlugin(pluginInterface("mcbans"));
         	return;
         }
+        */
         
         // API KEY verification!
         if (Core.apikey != null) {

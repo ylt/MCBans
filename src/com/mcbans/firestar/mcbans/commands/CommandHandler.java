@@ -107,6 +107,7 @@ public class CommandHandler {
 				    }
                 }
 			}
+			/*
 			if (!useFlags) {
 				Player target = MCBans.getServer().getPlayer(args[0]);
 				username = args[0];
@@ -114,6 +115,7 @@ public class CommandHandler {
 					PlayerIP = target.getAddress().getAddress().getHostAddress();
 				}
 			}
+			*/
 		}
 		switch(Commands.valueOf(command.toUpperCase())){
 			case BAN:
