@@ -102,20 +102,21 @@ public class CommandHandler {
                     }
 				    Player target = MCBans.getServer().getPlayer(args[1]);
 				    username = args[1];
-				    if( target!=null ){
+				    /*if( target!=null ){
 				    	PlayerIP = target.getAddress().getAddress().getHostAddress();
 				    }
+				    */
                 }
 			}
-			/*
+			
 			if (!useFlags) {
 				Player target = MCBans.getServer().getPlayer(args[0]);
 				username = args[0];
-				if( target!=null ){
+				/*if( target!=null ){
 					PlayerIP = target.getAddress().getAddress().getHostAddress();
-				}
+				}*/
 			}
-			*/
+			
 		}
 		switch(Commands.valueOf(command.toUpperCase())){
 			case BAN:
