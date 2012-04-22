@@ -9,7 +9,6 @@
         <pathelement location="PATH/bukkit.jar"/>
         <pathelement location="PATH/craftbukkit.jar"/>
         <pathelement location="PATH/plugins/LogBlock.jar"/>
-	<pathelement location="PATH/plugins/Permissions.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>

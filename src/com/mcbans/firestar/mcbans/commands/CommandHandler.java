@@ -100,7 +100,7 @@ public class CommandHandler {
                         MCBans.broadcastPlayer( CommandSend, ChatColor.DARK_RED + "LogBlock was not found - You cannot use flag 'r'" );
 				    	return true;
                     }
-				    Player target = MCBans.getServer().getPlayer(args[1]);
+				    //Player target = MCBans.getServer().getPlayer(args[1]);
 				    username = args[1];
 				    /*if( target!=null ){
 				    	PlayerIP = target.getAddress().getAddress().getHostAddress();
@@ -110,7 +110,7 @@ public class CommandHandler {
 			}
 			
 			if (!useFlags) {
-				Player target = MCBans.getServer().getPlayer(args[0]);
+				//Player target = MCBans.getServer().getPlayer(args[0]);
 				username = args[0];
 				/*if( target!=null ){
 					PlayerIP = target.getAddress().getAddress().getHostAddress();

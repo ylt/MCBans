@@ -7,8 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerPreLoginEvent.Result;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener {
@@ -17,16 +17,17 @@ public class PlayerListener implements Listener {
         MCBans = plugin;
     }
 	@EventHandler
-	public void onPlayerPreLogin(PlayerPreLoginEvent event) {
+	public void onPlayerLogin(PlayerLoginEvent event) {
 		if (event.getResult() != Result.ALLOWED) {
 			return;
 		}
-		String playerIP = event.getAddress().getHostAddress();
-        String playerName = event.getName();
+		//String playerIP = event.getAddress().getHostAddress();
+		String playerIP = "";
+        String playerName = event.getPlayer().getName();;
 		Connect playerConnect = new Connect( MCBans );
 		String result = playerConnect.exec( playerName, playerIP );
 		if( result != null ){
-			event.disallow(PlayerPreLoginEvent.Result.KICK_BANNED, result);
+			event.disallow(PlayerLoginEvent.Result.KICK_BANNED, result);
 		}
 	}
 	@EventHandler
